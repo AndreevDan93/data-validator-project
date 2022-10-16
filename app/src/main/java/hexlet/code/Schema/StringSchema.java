@@ -8,10 +8,11 @@ public class StringSchema implements Schema{
     private Integer minN;
     private String contain;
 
-    public void required() {
+    public StringSchema required() {
         this.isRequired = true;
         this.isMinLength = false;
         this.isContains = false;
+        return this;
     }
 
     public StringSchema minLength(int minN) {
