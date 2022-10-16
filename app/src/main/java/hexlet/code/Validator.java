@@ -2,7 +2,6 @@ package hexlet.code;
 
 import hexlet.code.Schema.MapSchema;
 import hexlet.code.Schema.NumberSchema;
-import hexlet.code.Schema.Schema;
 import hexlet.code.Schema.StringSchema;
 
 public class Validator {
