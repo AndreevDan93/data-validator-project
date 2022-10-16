@@ -1,6 +1,6 @@
 package hexlet.code.Schema;
 
-public class StringSchema implements Schema{
+public class StringSchema {
     private boolean isRequired = false;
     private boolean isMinLength = false;
     private boolean isContains = false;

@@ -1,6 +1,6 @@
 package hexlet.code.Schema;
 
-public class NumberSchema implements Schema {
+public class NumberSchema {
     private boolean isRequired = false;
     private boolean isPositive = false;
     private boolean isRange = false;
