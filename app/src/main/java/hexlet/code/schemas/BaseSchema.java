@@ -10,7 +10,7 @@ public abstract class BaseSchema {
 
     protected abstract BaseSchema required();
 
-    protected boolean isValid(Object content) {
+    protected final boolean isValid(Object content) {
         if (!isRequired) {
             return true;
         }
