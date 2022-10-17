@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class StringSchemaTest {
 
     @Test
-    void stringSchemaTest() {
+    void stringSchemaCaseTest() {
         Validator v = new Validator();
 
         StringSchema schema = v.string();
@@ -33,6 +33,18 @@ class StringSchemaTest {
 
         assertFalse(schema.isValid("what does the fox say")); // false
 // уже false, так как добавлена ещё одна проверка contains("whatthe")
+    }
+
+    @Test
+    void stringSchemaLogicTest() {
+        Validator v = new Validator();
+        StringSchema schema = v.string();
+
+        assertTrue(schema.required().minLength(5).contains("id").isValid("id12345"));
+        assertFalse(schema.isValid("id="));
+        assertFalse(schema.isValid("123456"));
+        assertFalse(schema.isValid(null));
+
     }
 
 }

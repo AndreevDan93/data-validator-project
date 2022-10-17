@@ -1,45 +1,49 @@
 package hexlet.code.Schema;
 
 import hexlet.code.Validator;
-import org.junit.jupiter.api.Assertions;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
+
 
 class NumberSchemaTest {
 
     @Test
-    void numberSchemaTest() {
+    void numberSchemaCaseTest() {
         Validator v = new Validator();
 
         NumberSchema schema = v.number();
 
-        Assertions.assertTrue(schema.isValid(null)); // true
+        assertTrue(schema.isValid(null)); // true
 
         schema.required();
 
-        Assertions.assertFalse(schema.isValid(null)); // false
-        Assertions.assertTrue(schema.isValid(10)); // true
-        Assertions.assertFalse(schema.isValid("5")); // false
+        assertFalse(schema.isValid(null)); // false
+        assertTrue(schema.isValid(10)); // true
+        assertFalse(schema.isValid("5")); // false
 
-        Assertions.assertTrue(schema.positive().isValid(10)); // true
-        Assertions.assertFalse(schema.isValid(-10)); // false
+        assertTrue(schema.positive().isValid(10)); // true
+        assertFalse(schema.isValid(-10)); // false
 
         schema.range(5, 10);
 
-        Assertions.assertTrue(schema.isValid(5)); // true
-        Assertions.assertTrue(schema.isValid(10)); // true
-        Assertions.assertFalse(schema.isValid(4)); // false
-        Assertions.assertFalse(schema.isValid(11)); // false
+        assertTrue(schema.isValid(5)); // true
+        assertTrue(schema.isValid(10)); // true
+        assertFalse(schema.isValid(4)); // false
+        assertFalse(schema.isValid(11)); // false
     }
 
     @Test
-    void numberSchemaTest1() {
-        Validator v = new Validator();
+    void numberSchemaLogicTest() {
+        Validator v1 = new Validator();
+        NumberSchema schema = v1.number();
 
-        NumberSchema schema = v.number();
+        assertTrue(schema.required().positive().range(5, 10).isValid(5));
+        assertFalse(schema.isValid(4));
+        assertTrue(schema.isValid(6));
 
-        Assertions.assertTrue(schema.required().positive().range(5, 10).isValid(5));
-        Assertions.assertFalse(schema.isValid(4));
-        Assertions.assertTrue(schema.isValid(6));
     }
 
 

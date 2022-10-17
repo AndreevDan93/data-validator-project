@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class MapSchemaTest {
 
     @Test
-    void mapSchemaTest() {
+    void mapSchemaCaseTest() {
         Validator v = new Validator();
 
         MapSchema schema = v.map();
@@ -37,8 +37,9 @@ class MapSchemaTest {
 
         assertTrue(schema.isValid(data)); // true
     }
+
     @Test
-    void mapSchemaTest2() {
+    void mapSchemaCaseComplexTest2() {
         Validator v = new Validator();
 
         MapSchema schema = v.map();
@@ -68,6 +69,42 @@ class MapSchemaTest {
         human4.put("name", "Valya");
         human4.put("age", -5);
         schema.isValid(human4); // false
+    }
+
+    @Test
+    void mapSchemaLogicTest() {
+        Validator v = new Validator();
+        MapSchema schema = v.map();
+        Map<String, BaseSchema> checkSchema = Map.of(
+                "name", v.string().required().minLength(4).contains(" "),
+                "age", v.number().required().positive().range(18, 55),
+                "id", v.number().positive().range(11111111, 888888888));
+
+
+        Map<String, Object> user1 = Map.of(
+                "name", "Hurry Potter",
+                "age", 22,
+                "id", 88888888);
+        assertTrue(schema.required().sizeof(3).shape(checkSchema).isValid(user1));
+
+        Map<String, Object> user2 = Map.of(
+                "name", "Damboldor",
+                "age", 55,
+                "id", 11111111);
+        assertFalse(schema.isValid(user2));
+
+        Map<String, Object> user3 = Map.of(
+                "name", "Dobby",
+                "age", 116,
+                "id", 88888889);
+        assertFalse(schema.isValid(user3));
+
+        Map<String, Object> user4 = Map.of(
+                "name", "Germiona O.P. Power",
+                "age", 21,
+                "id", 12345678);
+        assertTrue(schema.isValid(user4));
+
     }
 
 }
