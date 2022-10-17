@@ -9,7 +9,7 @@ class BaseSchema {
     protected boolean isRequired = false;
 
     protected BaseSchema required() {
-        isRequired = true;
+        this.isRequired = true;
         return this;
     }
 
