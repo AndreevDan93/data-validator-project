@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 
-class NumberSchemaTest {
+class NumberValidatorTest {
 
     @Test
     void numberSchemaCaseTest() {
@@ -33,6 +33,7 @@ class NumberSchemaTest {
         assertTrue(schema.isValid(10)); // true
         assertFalse(schema.isValid(4)); // false
         assertFalse(schema.isValid(11)); // false
+        assertFalse(schema.isValid(null));
     }
 
     @Test
