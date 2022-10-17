@@ -108,13 +108,13 @@ Map<String, BaseSchema> checkSchema = Map.of(
 
 
 Map<String, Object> user1 = Map.of(
-    "name", "Hurry Potter",
+    "name", "Harry Potter",
     "age", 22,
     "id", 88888888);
 schema.required().sizeof(3).shape(checkSchema).isValid(user1); /true
 
 Map<String, Object> user2 = Map.of(
-    "name", "Damboldor",
+    "name", "Dumbledore",
     "age", 55,
     "id", 11111111);
 schema.isValid(user2); /false
@@ -126,7 +126,7 @@ Map<String, Object> user3 = Map.of(
 schema.isValid(user3); /false
 
 Map<String, Object> user4 = Map.of(
-    "name", "Germiona O.P. Power",
+    "name", "Hermione O.P. Power",
     "age", 21,
     "id", 12345678);
 schema.isValid(user4); /true
