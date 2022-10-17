@@ -15,6 +15,7 @@ class NumberValidatorTest {
         Validator v = new Validator();
 
         NumberSchema schema = v.number();
+        assertTrue(schema.positive().isValid(null));
 
         assertTrue(schema.isValid(null)); // true
 

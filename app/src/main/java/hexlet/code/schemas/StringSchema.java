@@ -9,7 +9,7 @@ public final class StringSchema extends BaseSchema {
         this.isRequired = true;
         Predicate<?> pr1 = a -> a instanceof String;
         Predicate<String> pr2 = a -> !a.isBlank();
-        this.predicates.add(pr1);
+        this.predicates.add(0, pr1);
         this.predicates.add(pr2);
         return this;
     }

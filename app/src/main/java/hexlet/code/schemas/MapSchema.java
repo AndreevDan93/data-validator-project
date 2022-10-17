@@ -9,7 +9,7 @@ public final class MapSchema extends BaseSchema {
     public MapSchema required() {
         this.isRequired = true;
         Predicate<?> pr = a -> a instanceof Map<?, ?>;
-        this.predicates.add(pr);
+        this.predicates.add(0, pr);
         return this;
     }
 

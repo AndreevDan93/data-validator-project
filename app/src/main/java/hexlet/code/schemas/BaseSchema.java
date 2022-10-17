@@ -12,7 +12,7 @@ public abstract class BaseSchema {
 
     public final boolean isValid(Object content) {
         if (content == null) {
-            return !isRequired;
+            return isRequired? false:true;
         }
 
         for (Predicate predicate : predicates) {

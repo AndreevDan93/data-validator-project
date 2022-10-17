@@ -9,7 +9,7 @@ public final class NumberSchema extends BaseSchema {
     public NumberSchema required() {
         this.isRequired = true;
         Predicate<?> pr = a -> a instanceof Integer;
-        this.predicates.add(pr);
+        this.predicates.add(0, pr);
         return this;
     }
 
