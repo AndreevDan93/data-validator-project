@@ -8,9 +8,9 @@ public abstract class BaseSchema {
     protected List<Predicate<?>> predicates = new ArrayList<>();
     protected boolean isRequired = false;
 
-    protected abstract BaseSchema required();
+    public abstract BaseSchema required();
 
-    protected final boolean isValid(Object content) {
+    public final boolean isValid(Object content) {
         if (!isRequired) {
             return true;
         }
