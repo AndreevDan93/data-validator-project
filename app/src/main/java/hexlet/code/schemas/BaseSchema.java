@@ -11,7 +11,7 @@ public abstract class BaseSchema {
     public abstract BaseSchema required();
 
     public final boolean isValid(Object content) {
-        if (!isRequired) {
+        if (!isRequired && content == null) {
             return true;
         }
 
