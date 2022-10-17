@@ -82,13 +82,13 @@ class MapValidatorTest {
 
 
         Map<String, Object> user1 = Map.of(
-                "name", "Hurry Potter",
+                "name", "Harry Potter",
                 "age", 22,
                 "id", 88888888);
         assertTrue(schema.required().sizeof(3).shape(checkSchema).isValid(user1));
 
         Map<String, Object> user2 = Map.of(
-                "name", "Damboldor",
+                "name", "Dumbledore",
                 "age", 55,
                 "id", 11111111);
         assertFalse(schema.isValid(user2));
@@ -100,7 +100,7 @@ class MapValidatorTest {
         assertFalse(schema.isValid(user3));
 
         Map<String, Object> user4 = Map.of(
-                "name", "Germiona O.P. Power",
+                "name", "Hermione O.P. Power",
                 "age", 21,
                 "faculty", "Gryffindor");
         assertFalse(schema.isValid(user4));
