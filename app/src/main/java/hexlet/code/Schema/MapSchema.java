@@ -3,7 +3,7 @@ package hexlet.code.Schema;
 import java.util.Map;
 import java.util.function.Predicate;
 
-public class MapSchema extends BaseSchema {
+public final class MapSchema extends BaseSchema {
 
     @Override
     public MapSchema required() {

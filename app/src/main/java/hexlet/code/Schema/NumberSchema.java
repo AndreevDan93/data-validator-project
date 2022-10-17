@@ -3,7 +3,7 @@ package hexlet.code.Schema;
 
 import java.util.function.Predicate;
 
-public class NumberSchema extends BaseSchema {
+public final class NumberSchema extends BaseSchema {
 
     @Override
     public NumberSchema required() {
