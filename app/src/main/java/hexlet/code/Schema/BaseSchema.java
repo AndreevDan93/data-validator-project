@@ -11,11 +11,13 @@ abstract class BaseSchema {
     protected abstract BaseSchema required();
 
     protected boolean isValid(Object content) {
-        if (isRequired) {
-            for (Predicate predicate : predicates) {
-                if (!predicate.test(content)) {
-                    return false;
-                }
+        if (!isRequired) {
+            return true;
+        }
+
+        for (Predicate predicate : predicates) {
+            if (!predicate.test(content)) {
+                return false;
             }
         }
         return true;
