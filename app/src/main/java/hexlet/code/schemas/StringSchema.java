@@ -15,7 +15,7 @@ public final class StringSchema extends BaseSchema {
     }
 
     public StringSchema minLength(int minN) {
-        Predicate<String> pr = a -> a.length() >= minN;
+        Predicate<String> pr = a -> a.length() > minN;
         this.predicates.add(pr);
         return this;
     }
