@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-class BaseSchema {
-    List<Predicate<?>> predicates = new ArrayList<>();
+abstract class BaseSchema {
+    protected List<Predicate<?>> predicates = new ArrayList<>();
     protected boolean isRequired = false;
 
-    protected BaseSchema required() {
-        this.isRequired = true;
-        return this;
-    }
+    protected abstract BaseSchema required();
 
     protected boolean isValid(Object content) {
         if (isRequired) {

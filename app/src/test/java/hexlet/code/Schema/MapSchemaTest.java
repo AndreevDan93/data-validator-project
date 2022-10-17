@@ -102,8 +102,8 @@ class MapSchemaTest {
         Map<String, Object> user4 = Map.of(
                 "name", "Germiona O.P. Power",
                 "age", 21,
-                "id", 12345678);
-        assertTrue(schema.isValid(user4));
+                "faculty", "Gryffindor");
+        assertFalse(schema.isValid(user4));
 
     }
 
