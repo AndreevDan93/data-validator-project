@@ -23,5 +23,4 @@ public final class StringSchema extends BaseSchema {
         addPredicate(value -> !getRequiredPredicate().test(value) || value.toString().contains(contain));
         return this;
     }
-
 }

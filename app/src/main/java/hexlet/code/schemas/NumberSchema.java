@@ -24,6 +24,4 @@ public final class NumberSchema extends BaseSchema {
                 || ((Integer) value >= min && (Integer) value <= max));
         return this;
     }
-
-
 }

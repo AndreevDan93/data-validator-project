@@ -1,21 +1,15 @@
 package hexlet.code.schemas;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
+@Data
 public abstract class BaseSchema {
     private final List<Predicate<Object>> predicates = new ArrayList<>();
     private Predicate<Object> requiredPredicate;
-
-    public final Predicate<Object> getRequiredPredicate() {
-        return requiredPredicate;
-    }
-
-    public final void setRequiredPredicate(Predicate<Object> predicate) {
-        this.requiredPredicate = predicate;
-    }
-
 
     public final void addPredicate(Predicate<Object> predicate) {
         this.predicates.add(predicate);
