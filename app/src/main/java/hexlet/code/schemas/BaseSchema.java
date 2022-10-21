@@ -5,37 +5,35 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public abstract class BaseSchema {
-    private List<Predicate<Object>> predicates = new ArrayList<>();
+    private final List<Predicate<Object>> predicates = new ArrayList<>();
     private Predicate<Object> requiredPredicate;
 
-    public Predicate<Object> getRequiredPredicate() {
+    public final Predicate<Object> getRequiredPredicate() {
         return requiredPredicate;
     }
 
-    public void setRequiredPredicate(Predicate<Object> requiredPredicate) {
-        this.requiredPredicate = requiredPredicate;
+    public final void setRequiredPredicate(Predicate<Object> predicate) {
+        this.requiredPredicate = predicate;
     }
 
 
-    public void addPredicate(Predicate<Object> predicate) {
+    public final void addPredicate(Predicate<Object> predicate) {
         this.predicates.add(predicate);
     }
 
-    public void addPredicate(Integer index, Predicate<Object> predicate) {
+    public final void addPredicate(Integer index, Predicate<Object> predicate) {
         this.predicates.add(index, predicate);
     }
 
 
-    public BaseSchema required() {
-        assignRequiredPredicate();
-        addPredicate(0, getRequiredPredicate());
-        return this;
-    }
+    public abstract BaseSchema required();
 
     public abstract void assignRequiredPredicate();
 
-    public boolean isValid(Object content) {
-        assignRequiredPredicate();
+    public final boolean isValid(Object content) {
+        if (this.requiredPredicate == null) {
+            assignRequiredPredicate();
+        }
         return predicates.stream().allMatch(predicate -> predicate.test(content));
     }
 }

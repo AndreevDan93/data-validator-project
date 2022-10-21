@@ -1,14 +1,10 @@
 package hexlet.code.schemas;
 
-import java.util.function.Predicate;
-
 public final class StringSchema extends BaseSchema {
 
     @Override
     public void assignRequiredPredicate() {
-        if (getRequiredPredicate() == null) {
-            setRequiredPredicate(value -> value instanceof String && !(value.toString().isBlank()));
-        }
+        setRequiredPredicate(value -> value instanceof String && !(value.toString().isBlank()));
     }
 
     @Override

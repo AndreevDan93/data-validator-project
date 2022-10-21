@@ -6,9 +6,7 @@ public final class MapSchema extends BaseSchema {
 
     @Override
     public void assignRequiredPredicate() {
-        if (getRequiredPredicate() == null) {
-            setRequiredPredicate(a -> a instanceof Map<?, ?>);
-        }
+        setRequiredPredicate(a -> a instanceof Map<?, ?>);
     }
 
     @Override
