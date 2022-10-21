@@ -12,7 +12,7 @@
 </h1>
 
 <h3>
-Проверяет строковые данные, числовые и map обьекты,<br>
+Проверяет данные Integer, String и Map типа<br>
 а также внутренние данные Map  String и Integer типа
 </h3>
 
@@ -68,7 +68,7 @@ schema.isValid(4); // false
 schema.isValid(11); // false
 </pre>
 
-<h3>Пример Map:</h3>
+<h3>Пример Map данных:</h3>
 
 <pre class="box">
 Validator v = new Validator();
