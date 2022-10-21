@@ -1,38 +1,39 @@
 package hexlet.code.schemas;
 
 import java.util.Map;
-import java.util.function.Predicate;
 
 public final class MapSchema extends BaseSchema {
 
     @Override
+    public void assignRequiredPredicate() {
+        if (getRequiredPredicate() == null) {
+            setRequiredPredicate(a -> a instanceof Map<?, ?>);
+        }
+    }
+
+    @Override
     public MapSchema required() {
-        this.isRequired = true;
-        Predicate<?> pr = a -> a instanceof Map<?, ?>;
-        this.predicates.add(0, pr);
+        assignRequiredPredicate();
+        addPredicate(0, getRequiredPredicate());
         return this;
     }
 
     public MapSchema sizeof(Integer size) {
-        Predicate<Map<?, ?>> pr = a -> a.size() == size;
-        this.predicates.add(pr);
+        addPredicate(value -> !getRequiredPredicate().test(value) || ((Map<String, Object>) value).size() == size);
         return this;
     }
 
-    public MapSchema shape(Map<String, BaseSchema> shames) {
-        Predicate<Map<?, ?>> pr = n -> getPredicateComplexValid((Map<String, Object>) n, shames);
-        predicates.add(pr);
+    public MapSchema shape(Map<String, BaseSchema> schemas) {
+        addPredicate(n -> mapValueValidCheck((Map<String, Object>) n, schemas));
         return this;
     }
 
-    private boolean getPredicateComplexValid(Map<String, Object> content, Map<String, BaseSchema> schemes) {
+    private boolean mapValueValidCheck(Map<String, Object> content, Map<String, BaseSchema> schemes) {
         for (Map.Entry<?, ?> entry : ((Map<?, ?>) content).entrySet()) {
             if (!schemes.containsKey(entry.getKey())) {
                 return false;
             }
-
             BaseSchema schema = schemes.get(entry.getKey());
-
             if (!schema.isValid(entry.getValue())) {
                 return false;
             }

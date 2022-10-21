@@ -9,7 +9,84 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class MapValidatorTest {
+public class ValidatorTest {
+
+    @Test
+    public void numberSchemaCaseTest() {
+        Validator v = new Validator();
+
+        NumberSchema schema = v.number();
+        assertTrue(schema.positive().isValid(null));
+
+        assertTrue(schema.isValid(null)); // true
+
+        schema.required();
+
+        assertFalse(schema.isValid(null)); // false
+        assertTrue(schema.isValid(10)); // true
+        assertFalse(schema.isValid("5")); // false
+
+        assertTrue(schema.positive().isValid(10)); // true
+        assertFalse(schema.isValid(-10)); // false
+
+        schema.range(5, 10);
+
+        assertTrue(schema.isValid(5)); // true
+        assertTrue(schema.isValid(10)); // true
+        assertFalse(schema.isValid(4)); // false
+        assertFalse(schema.isValid(11)); // false
+        assertFalse(schema.isValid(null));
+    }
+
+    @Test
+    void numberSchemaLogicTest() {
+        Validator v1 = new Validator();
+        NumberSchema schema = v1.number();
+
+        assertTrue(schema.required().positive().range(5, 10).isValid(5));
+        assertFalse(schema.isValid(4));
+        assertTrue(schema.isValid(6));
+
+    }
+
+    @Test
+    void stringSchemaCaseTest() {
+        Validator v = new Validator();
+
+        StringSchema schema = v.string();
+
+        assertTrue(schema.isValid("")); // true
+        assertTrue(schema.isValid(null)); // true
+
+        schema.required();
+
+        assertTrue(schema.isValid("what does the fox say")); // true
+        assertTrue(schema.isValid("hexlet")); // true
+        assertFalse(schema.isValid(null)); // false
+        assertFalse(schema.isValid("")); // false
+
+        assertTrue(schema.minLength(2).isValid("hexlet"));
+        assertFalse(schema.minLength(10).isValid("Harry"));
+
+        assertTrue(schema.contains("wh").isValid("what does the fox say")); // true
+        assertTrue(schema.contains("what").isValid("what does the fox say")); // true
+        assertFalse(schema.contains("whatthe").isValid("what does the fox say")); // false
+
+        assertFalse(schema.isValid("what does the fox say")); // false
+// уже false, так как добавлена ещё одна проверка contains("whatthe")
+    }
+
+    @Test
+    void stringSchemaLogicTest() {
+        Validator v = new Validator();
+        StringSchema schema = v.string();
+
+        assertTrue(schema.required().minLength(5).contains("id").isValid("id12345"));
+        assertFalse(schema.isValid("id="));
+        assertFalse(schema.isValid("123456"));
+        assertFalse(schema.isValid(null));
+
+    }
 
     @Test
     void mapSchemaCaseTest() {
@@ -106,5 +183,4 @@ class MapValidatorTest {
         assertFalse(schema.isValid(user4));
 
     }
-
 }

@@ -1,10 +1,7 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/AndreevDan93/java-project-78/workflows/hexlet-check/badge.svg)](https://github.com/AndreevDan93/java-project-78/actions)
-
 [![Maintainability](https://api.codeclimate.com/v1/badges/e593145430a26e2a40a8/maintainability)](https://codeclimate.com/github/AndreevDan93/java-project-78/maintainability)
-
 [![Test Coverage](https://api.codeclimate.com/v1/badges/e593145430a26e2a40a8/test_coverage)](https://codeclimate.com/github/AndreevDan93/java-project-78/test_coverage)
-
 ![Java CI](https://github.com/AndreevDan93/java-project-78/workflows/Java%20CI/badge.svg)
 
 
@@ -15,12 +12,12 @@
 </h1>
 
 <h3>
-проверяет строковые данные, числовые и map обьекты,<br>
+Проверяет строковые данные, числовые и map обьекты,<br>
 а также внутренние данные Map  String и Integer типа
 </h3>
 
 <h3>
-пример String данных:
+Пример String данных:
 </h3>
 
 <pre class="box">
@@ -45,7 +42,7 @@ schema.isValid("what does the fox say"); // false
 // уже false, так как добавлена ещё одна проверка contains("whatthe")
 </pre>
 
-<h3>пример Integer данных:</h3>
+<h3>Пример Integer данных:</h3>
 
 <pre class="box">
 Validator v = new Validator();
@@ -71,7 +68,7 @@ schema.isValid(4); // false
 schema.isValid(11); // false
 </pre>
 
-<h3>пример Map:</h3>
+<h3>Пример Map:</h3>
 
 <pre class="box">
 Validator v = new Validator();
@@ -95,7 +92,7 @@ data.put("key2", "value2");
 schema.isValid(data); // true
 </pre>
 
-<h3>пример комплексной валидации Map:</h3>
+<h3>Пример комплексной валидации Map:</h3>
 <pre class="box">
 
 // shape - позволяет описывать валидацию для значений объекта Map по ключам.

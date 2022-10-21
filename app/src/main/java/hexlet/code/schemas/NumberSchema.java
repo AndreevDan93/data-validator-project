@@ -6,22 +6,27 @@ import java.util.function.Predicate;
 public final class NumberSchema extends BaseSchema {
 
     @Override
+    public void assignRequiredPredicate() {
+        if (getRequiredPredicate() == null) {
+            setRequiredPredicate(a -> a instanceof Integer);
+        }
+    }
+
+    @Override
     public NumberSchema required() {
-        this.isRequired = true;
-        Predicate<?> pr = a -> a instanceof Integer;
-        this.predicates.add(0, pr);
+        assignRequiredPredicate();
+        addPredicate(0, getRequiredPredicate());
         return this;
     }
 
+
     public NumberSchema positive() {
-        Predicate<Integer> pr = a -> a > 0;
-        this.predicates.add(pr);
+        addPredicate(value -> !getRequiredPredicate().test(value) || (Integer) value > 0);
         return this;
     }
 
     public NumberSchema range(Integer min, Integer max) {
-        Predicate<Integer> pr = a -> a >= min && a <= max;
-        this.predicates.add(pr);
+        addPredicate(value -> !getRequiredPredicate().test(value) || ((Integer) value >= min && (Integer) value <= max));
         return this;
     }
 
