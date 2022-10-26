@@ -3,25 +3,31 @@ package hexlet.code.schemas;
 import java.util.Map;
 
 public final class MapSchema extends BaseSchema {
+    private Map<String, BaseSchema> schemas;
 
     @Override
-    public void assignRequiredPredicate() {
-        setRequiredPredicate(a -> a instanceof Map<?, ?>);
+    public boolean notRequired(Object content) {
+        if (content instanceof Map<?, ?>) {
+            return mapValueValidCheck((Map<String, Object>) content, schemas);
+        } else {
+            return true;
+        }
     }
 
     @Override
     public MapSchema required() {
-        assignRequiredPredicate();
+        setRequiredPredicate(a -> a instanceof Map<?, ?>);
         addPredicate(0, getRequiredPredicate());
         return this;
     }
 
     public MapSchema sizeof(Integer size) {
-        addPredicate(value -> !getRequiredPredicate().test(value) || ((Map<String, Object>) value).size() == size);
+        addPredicate(value -> ((Map<String, Object>) value).size() == size);
         return this;
     }
 
-    public MapSchema shape(Map<String, BaseSchema> schemas) {
+    public MapSchema shape(Map<String, BaseSchema> insideSchemas) {
+        this.schemas = insideSchemas;
         addPredicate(n -> mapValueValidCheck((Map<String, Object>) n, schemas));
         return this;
     }

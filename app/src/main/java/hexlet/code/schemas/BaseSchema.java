@@ -22,13 +22,14 @@ public abstract class BaseSchema {
 
     public abstract BaseSchema required();
 
-    public abstract void assignRequiredPredicate();
+    public abstract boolean notRequired(Object content);
 
     public final boolean isValid(Object content) {
         if (this.requiredPredicate == null) {
-            assignRequiredPredicate();
+            return notRequired(content);
+        } else {
+            return predicates.stream().allMatch(predicate -> predicate.test(content));
         }
-        return predicates.stream().allMatch(predicate -> predicate.test(content));
     }
 }
 
