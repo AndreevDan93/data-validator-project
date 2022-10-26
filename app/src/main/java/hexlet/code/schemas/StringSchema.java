@@ -4,7 +4,7 @@ public final class StringSchema extends BaseSchema {
 
     @Override
     public boolean notRequired(Object content) {
-        return content == null || content.toString().isBlank() || !(content instanceof String);
+        return !(content instanceof String) || content.toString().isBlank();
     }
 
     @Override
