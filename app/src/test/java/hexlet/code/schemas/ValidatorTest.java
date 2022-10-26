@@ -16,37 +16,40 @@ public class ValidatorTest {
         Validator v = new Validator();
 
         NumberSchema schema = v.number();
-        assertTrue(schema.positive().isValid(null));
+        assertTrue(schema.isValid(null)); //true
 
-        assertTrue(schema.isValid(null)); // true
+        schema.positive();
+        assertTrue(schema.isValid(null));
+        assertTrue(schema.isValid(5));
+        assertFalse(schema.isValid(-5));
+        assertFalse(schema.isValid("5")); // false
 
         schema.required();
-
         assertFalse(schema.isValid(null)); // false
         assertTrue(schema.isValid(10)); // true
         assertFalse(schema.isValid("5")); // false
-
-        assertTrue(schema.positive().isValid(10)); // true
+        assertTrue(schema.isValid(10)); // true
         assertFalse(schema.isValid(-10)); // false
 
         schema.range(5, 10);
-
         assertTrue(schema.isValid(5)); // true
         assertTrue(schema.isValid(10)); // true
         assertFalse(schema.isValid(4)); // false
         assertFalse(schema.isValid(11)); // false
-        assertFalse(schema.isValid(null));
+        assertFalse(schema.isValid(null)); //false
     }
 
     @Test
     void numberSchemaLogicTest() {
         Validator v1 = new Validator();
-        NumberSchema schema = v1.number();
+        NumberSchema workingAge = v1.number();
 
-        assertTrue(schema.required().positive().range(5, 10).isValid(5));
-        assertFalse(schema.isValid(4));
-        assertTrue(schema.isValid(6));
-
+        workingAge.required().positive().range(18, 65);
+        assertFalse(workingAge.isValid(null)); //false
+        assertFalse(workingAge.isValid(4)); //false
+        assertTrue(workingAge.isValid(18)); //true
+        assertTrue(workingAge.isValid(45)); //woman is berry again
+        assertTrue(workingAge.isValid(65)); //true
     }
 
     @Test
@@ -54,38 +57,35 @@ public class ValidatorTest {
         Validator v = new Validator();
 
         StringSchema schema = v.string();
-
         assertTrue(schema.isValid("")); // true
         assertTrue(schema.isValid(null)); // true
+        assertFalse(schema.isValid(5)); // false
 
         schema.required();
-
         assertTrue(schema.isValid("what does the fox say")); // true
         assertTrue(schema.isValid("hexlet")); // true
         assertFalse(schema.isValid(null)); // false
         assertFalse(schema.isValid("")); // false
 
-        assertTrue(schema.minLength(2).isValid("hexlet"));
-        assertFalse(schema.minLength(10).isValid("Harry"));
+        assertTrue(schema.minLength(2).isValid("hexlet")); //true
+        assertFalse(schema.minLength(10).isValid("Harry")); //false
 
         assertTrue(schema.contains("wh").isValid("what does the fox say")); // true
         assertTrue(schema.contains("what").isValid("what does the fox say")); // true
         assertFalse(schema.contains("whatthe").isValid("what does the fox say")); // false
-
-        assertFalse(schema.isValid("what does the fox say")); // false
-// уже false, так как добавлена ещё одна проверка contains("whatthe")
     }
 
     @Test
     void stringSchemaLogicTest() {
         Validator v = new Validator();
-        StringSchema schema = v.string();
 
-        assertTrue(schema.required().minLength(5).contains("id").isValid("id12345"));
-        assertFalse(schema.isValid("id="));
-        assertFalse(schema.isValid("123456"));
-        assertFalse(schema.isValid(null));
+        StringSchema userID = v.string();
 
+        userID.required().minLength(5).contains("id=");
+        assertFalse(userID.isValid("id=")); //false
+        assertFalse(userID.isValid("123456")); //false
+        assertFalse(userID.isValid(null)); //false
+        assertTrue(userID.isValid("id=123")); //true
     }
 
     @Test
@@ -97,21 +97,15 @@ public class ValidatorTest {
         assertTrue(schema.isValid(null)); // true
 
         schema.required();
-
         assertFalse(schema.isValid(null)); // false
         assertTrue(schema.isValid(new HashMap<>())); // true
-
         Map<String, String> data = new HashMap<>();
         data.put("key1", "value1");
-
         assertTrue(schema.isValid(data)); // true
 
         schema.sizeof(2);
-
         assertFalse(schema.isValid(data));  // false
-
         data.put("key2", "value2");
-
         assertTrue(schema.isValid(data)); // true
     }
 
@@ -151,7 +145,7 @@ public class ValidatorTest {
     @Test
     void mapSchemaLogicTest() {
         Validator v = new Validator();
-        MapSchema schema = v.map();
+        MapSchema characters = v.map();
         Map<String, BaseSchema> checkSchema = Map.of(
                 "name", v.string().required().minLength(4).contains(" "),
                 "age", v.number().required().positive().range(18, 55),
@@ -162,25 +156,25 @@ public class ValidatorTest {
                 "name", "Harry Potter",
                 "age", 22,
                 "id", 88888888);
-        assertTrue(schema.required().sizeof(3).shape(checkSchema).isValid(user1));
+        assertTrue(characters.required().sizeof(3).shape(checkSchema).isValid(user1));
 
         Map<String, Object> user2 = Map.of(
                 "name", "Dumbledore",
                 "age", 55,
                 "id", 11111111);
-        assertFalse(schema.isValid(user2));
+        assertFalse(characters.isValid(user2));
 
         Map<String, Object> user3 = Map.of(
                 "name", "Dobby",
                 "age", 116,
                 "id", 88888889);
-        assertFalse(schema.isValid(user3));
+        assertFalse(characters.isValid(user3));
 
         Map<String, Object> user4 = Map.of(
                 "name", "Hermione O.P. Power",
                 "age", 21,
                 "faculty", "Gryffindor");
-        assertFalse(schema.isValid(user4));
+        assertFalse(characters.isValid(user4));
 
     }
 }
