@@ -4,12 +4,7 @@ public final class StringSchema extends BaseSchema {
 
     @Override
     public boolean notRequired(Object content) {
-        if (content == null || content.toString().isBlank()) {
-            return true;
-        } else {
-            this.getPredicates().add(0, value -> value instanceof String);
-            return false;
-        }
+        return content == null || content.toString().isBlank() || !(content instanceof String);
     }
 
     @Override

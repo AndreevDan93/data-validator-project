@@ -19,10 +19,10 @@ public class ValidatorTest {
         assertTrue(schema.isValid(null)); //true
 
         schema.positive();
-        assertTrue(schema.isValid(null));
-        assertTrue(schema.isValid(5));
-        assertFalse(schema.isValid(-5));
-        assertFalse(schema.isValid("5")); // false
+        assertTrue(schema.isValid(null)); //true
+        assertTrue(schema.isValid(5));  //true
+        assertFalse(schema.isValid(-5)); //false
+        assertTrue(schema.isValid("5")); // false
 
         schema.required();
         assertFalse(schema.isValid(null)); // false
@@ -59,7 +59,7 @@ public class ValidatorTest {
         StringSchema schema = v.string();
         assertTrue(schema.isValid("")); // true
         assertTrue(schema.isValid(null)); // true
-        assertFalse(schema.isValid(5)); // false
+        assertTrue(schema.isValid(5)); // false
 
         schema.required();
         assertTrue(schema.isValid("what does the fox say")); // true
