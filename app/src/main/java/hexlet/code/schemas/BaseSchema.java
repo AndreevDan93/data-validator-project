@@ -16,11 +16,9 @@ public abstract class BaseSchema {
     public abstract boolean notRequired(Object content);
 
     public final boolean isValid(Object content) {
-        if (!isRequired) {
-            return notRequired(content);
-        } else {
-            return predicates.stream().allMatch(predicate -> predicate.test(content));
-        }
+        return isRequired
+                ? predicates.stream().allMatch(predicate -> predicate.test(content))
+                : notRequired(content);
     }
 }
 
