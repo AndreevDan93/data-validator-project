@@ -6,11 +6,9 @@ public final class MapSchema extends BaseSchema {
 
     @Override
     public boolean notRequired(Object content) {
-        if (content instanceof Map<?, ?>) {
-            return this.getPredicates().stream().allMatch(predicate -> predicate.test(content));
-        } else {
-            return content == null;
-        }
+        return content instanceof Map<?, ?>
+                ? this.getPredicates().stream().allMatch(predicate -> predicate.test(content))
+                : content == null;
     }
 
     @Override

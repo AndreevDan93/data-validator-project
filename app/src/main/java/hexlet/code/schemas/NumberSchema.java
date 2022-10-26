@@ -4,11 +4,9 @@ public final class NumberSchema extends BaseSchema {
 
     @Override
     public boolean notRequired(Object content) {
-        if (content instanceof Integer) {
-            return this.getPredicates().stream().allMatch(predicate -> predicate.test(content));
-        } else {
-            return content == null;
-        }
+        return content instanceof Integer
+                ? this.getPredicates().stream().allMatch(predicate -> predicate.test(content))
+                : content == null;
     }
 
     @Override
