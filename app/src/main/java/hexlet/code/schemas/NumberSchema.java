@@ -13,8 +13,8 @@ public final class NumberSchema extends BaseSchema {
 
     @Override
     public NumberSchema required() {
-        setRequiredPredicate(a -> a instanceof Integer);
-        addPredicate(0, getRequiredPredicate());
+        this.setRequired(true);
+        addPredicate(0, value -> value instanceof Integer);
         return this;
     }
 

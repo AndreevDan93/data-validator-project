@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 @Data
 public abstract class BaseSchema {
     private final List<Predicate<Object>> predicates = new ArrayList<>();
-    private Predicate<Object> requiredPredicate;
+    private boolean isRequired = false;
 
     public final void addPredicate(Predicate<Object> predicate) {
         this.predicates.add(predicate);
@@ -25,7 +25,7 @@ public abstract class BaseSchema {
     public abstract boolean notRequired(Object content);
 
     public final boolean isValid(Object content) {
-        if (this.requiredPredicate == null) {
+        if (!isRequired) {
             return notRequired(content);
         } else {
             return predicates.stream().allMatch(predicate -> predicate.test(content));

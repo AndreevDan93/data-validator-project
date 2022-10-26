@@ -13,8 +13,8 @@ public final class StringSchema extends BaseSchema {
 
     @Override
     public StringSchema required() {
-        setRequiredPredicate(value -> value instanceof String && !(value.toString().isBlank()));
-        addPredicate(0, getRequiredPredicate());
+        this.setRequired(true);
+        addPredicate(0, value -> value instanceof String && !(value.toString().isBlank()));
         return this;
     }
 

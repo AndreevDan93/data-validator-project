@@ -17,8 +17,8 @@ public final class MapSchema extends BaseSchema {
 
     @Override
     public MapSchema required() {
-        setRequiredPredicate(a -> a instanceof Map<?, ?>);
-        addPredicate(0, getRequiredPredicate());
+        this.setRequired(true);
+        addPredicate(0, a -> a instanceof Map<?, ?>);
         return this;
     }
 
