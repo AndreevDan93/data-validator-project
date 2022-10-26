@@ -8,16 +8,15 @@
 <body>
 
 <h1>
-Программа валидирует данные по критериям
+The program validates data according to criteria
 </h1>
 
 <h3>
-Проверяет данные Integer, String и Map типа<br>
-а также внутренние данные Map  String и Integer типа
+Valid data types: Integer, String, Map<String, Integer/String>
 </h3>
 
 <h3>
-Пример String данных:
+String example:
 </h3>
 
 <pre class="box">
@@ -56,7 +55,9 @@ userID.isValid("id=123"); //true
 </pre>
 
 
-<h3>Пример Integer данных:</h3>
+<h3>
+Integer example:
+</h3>
 
 <pre class="box">
 Validator v = new Validator();
@@ -97,7 +98,9 @@ workingAge.isValid(45); //woman is berry again
 workingAge.isValid(65); //true
 </pre>
 
-<h3>Пример Map данных:</h3>
+<h3>
+Map example:
+</h3>
 
 <pre class="box">
 Validator v = new Validator();
@@ -120,7 +123,7 @@ schema.isValid(data); // true
 
 or complex:
 
-// shape - позволяет описывать валидацию для значений объекта Map по ключам.
+// shape - allows you to describe validation for Map object values by keys.
 Validator v = new Validator();
 MapSchema schema = v.map(); 
 Map<String, BaseSchema> checkSchema = Map.of(
