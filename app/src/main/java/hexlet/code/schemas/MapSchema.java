@@ -8,7 +8,8 @@ public final class MapSchema extends BaseSchema {
     @Override
     public boolean notRequired(Object content) {
         if (content instanceof Map<?, ?>) {
-            return mapValueValidCheck((Map<String, Object>) content, schemas);
+            return mapValueValidCheck((Map<String, Object>) content, schemas)
+                    && this.getPredicates().stream().allMatch(predicate -> predicate.test(content));
         } else {
             return true;
         }
