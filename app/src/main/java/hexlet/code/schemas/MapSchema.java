@@ -9,7 +9,7 @@ public final class MapSchema extends BaseSchema {
         if (content instanceof Map<?, ?>) {
             return this.getPredicates().stream().allMatch(predicate -> predicate.test(content));
         } else {
-            return true;
+            return content == null;
         }
     }
 
