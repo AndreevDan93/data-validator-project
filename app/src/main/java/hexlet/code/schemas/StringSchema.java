@@ -14,17 +14,17 @@ public final class StringSchema extends BaseSchema {
     @Override
     public StringSchema required() {
         this.setRequired(true);
-        addPredicate(0, value -> value instanceof String && !(value.toString().isBlank()));
+        this.getPredicates().add(0, value -> value instanceof String && !(value.toString().isBlank()));
         return this;
     }
 
     public StringSchema minLength(int minN) {
-        addPredicate(value -> value.toString().length() >= minN);
+        this.getPredicates().add(value -> value.toString().length() >= minN);
         return this;
     }
 
     public StringSchema contains(String contain) {
-        addPredicate(value -> value.toString().contains(contain));
+        this.getPredicates().add(value -> value.toString().contains(contain));
         return this;
     }
 }

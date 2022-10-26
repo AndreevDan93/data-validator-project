@@ -14,17 +14,17 @@ public final class NumberSchema extends BaseSchema {
     @Override
     public NumberSchema required() {
         this.setRequired(true);
-        addPredicate(0, value -> value instanceof Integer);
+        this.getPredicates().add(0, value -> value instanceof Integer);
         return this;
     }
 
     public NumberSchema positive() {
-        addPredicate(value -> (Integer) value > 0);
+        this.getPredicates().add(value -> (Integer) value > 0);
         return this;
     }
 
     public NumberSchema range(Integer min, Integer max) {
-        addPredicate(value -> (Integer) value >= min && (Integer) value <= max);
+        this.getPredicates().add(value -> (Integer) value >= min && (Integer) value <= max);
         return this;
     }
 }

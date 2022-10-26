@@ -11,15 +11,6 @@ public abstract class BaseSchema {
     private final List<Predicate<Object>> predicates = new ArrayList<>();
     private boolean isRequired = false;
 
-    public final void addPredicate(Predicate<Object> predicate) {
-        this.predicates.add(predicate);
-    }
-
-    public final void addPredicate(Integer index, Predicate<Object> predicate) {
-        this.predicates.add(index, predicate);
-    }
-
-
     public abstract BaseSchema required();
 
     public abstract boolean notRequired(Object content);
