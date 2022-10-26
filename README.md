@@ -24,23 +24,37 @@
 Validator v = new Validator();
 
 StringSchema schema = v.string();
-
 schema.isValid(""); // true
 schema.isValid(null); // true
+(schema.isValid(5); // false
 
 schema.required();
-
 schema.isValid("what does the fox say"); // true
 schema.isValid("hexlet"); // true
 schema.isValid(null); // false
-schema.isValid("");; // false
+schema.isValid(""); // false
 
+schema.minLength(2).isValid("hexlet"); //true
+schema.minLength(10).isValid("Harry"); //false
+
+schema.contains("wh").isValid("what does the fox say"); // true
 schema.contains("what").isValid("what does the fox say"); // true
 schema.contains("whatthe").isValid("what does the fox say"); // false
 
-schema.isValid("what does the fox say"); // false
-// уже false, так как добавлена ещё одна проверка contains("whatthe")
+or complex:
+
+Validator v = new Validator();
+
+StringSchema userID = v.string();
+
+userID.required().minLength(5).contains("id=");
+userID.isValid("id="); //false
+userID.isValid("123456"); //false
+userID.isValid(null); //false
+userID.isValid("id=123"); //true
+
 </pre>
+
 
 <h3>Пример Integer данных:</h3>
 
@@ -48,24 +62,39 @@ schema.isValid("what does the fox say"); // false
 Validator v = new Validator();
 
 NumberSchema schema = v.number();
+schema.isValid(null); //true
 
-schema.isValid(null); // true
-
-schema.required();
-
-schema.isValid(null); // false
-schema.isValid(10) // true
+schema.positive();
+schema.isValid(null);
+schema.isValid(5);
+schema.isValid(-5);
 schema.isValid("5"); // false
 
-schema.positive().isValid(10); // true
+schema.required();
+schema.isValid(null); // false
+schema.isValid(10); // true
+schema.isValid("5"); // false
+schema.isValid(10); // true
 schema.isValid(-10); // false
 
 schema.range(5, 10);
-
 schema.isValid(5); // true
 schema.isValid(10); // true
 schema.isValid(4); // false
 schema.isValid(11); // false
+schema.isValid(null); //false
+
+or complex:
+
+Validator v1 = new Validator();
+NumberSchema workingAge = v1.number();
+
+workingAge.required().positive().range(18, 65);
+workingAge.isValid(null); //false
+workingAge.isValid(4); //false
+workingAge.isValid(18); //true
+workingAge.isValid(45); //woman is berry again
+workingAge.isValid(65); //true
 </pre>
 
 <h3>Пример Map данных:</h3>
@@ -78,22 +107,18 @@ MapSchema schema = v.map();
 schema.isValid(null); // true
 
 schema.required();
-
-schema.isValid(null) // false
-schema.isValid(new HashMap()); // true
+schema.isValid(null); // false
+schema.isValid(new HashMap<>()); // true
 Map<String, String> data = new HashMap<>();
 data.put("key1", "value1");
 schema.isValid(data); // true
 
 schema.sizeof(2);
-
 schema.isValid(data);  // false
 data.put("key2", "value2");
 schema.isValid(data); // true
-</pre>
 
-<h3>Пример комплексной валидации Map:</h3>
-<pre class="box">
+or complex:
 
 // shape - позволяет описывать валидацию для значений объекта Map по ключам.
 Validator v = new Validator();
