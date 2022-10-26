@@ -9,7 +9,7 @@ public final class MapSchema extends BaseSchema {
         if (content == null) {
             return true;
         } else {
-            this.getPredicates().add(0, value -> value instanceof Map<?,?>);
+            this.getPredicates().add(0, value -> value instanceof Map<?, ?>);
             return false;
         }
     }
