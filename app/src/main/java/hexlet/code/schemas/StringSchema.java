@@ -4,9 +4,12 @@ public final class StringSchema extends BaseSchema {
 
     @Override
     public boolean notRequired(Object content) {
-        return content instanceof String
-                ? this.getPredicates().stream().allMatch(predicate -> predicate.test(content))
-                : content == null || content.toString().isBlank();
+        if (content == null || content.toString().isBlank()) {
+            return true;
+        } else {
+            this.getPredicates().add(0, value -> value instanceof String);
+            return false;
+        }
     }
 
     @Override
